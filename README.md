@@ -1,0 +1,1 @@
+[![Coverage Status](https://coveralls.io/repos/github/so2niko/ss-dp180/badge.svg)](https://coveralls.io/github/so2niko/ss-dp180)
