@@ -1,8 +1,8 @@
 /** DnD
- * 1. Делаем элементы тащибельными
- * 2. Запоминаем id/class тащимого элемента
+ * 1. Делаем элементы тащибельными(Туша)
+ * 2. Запоминаем id/class тащимого элемента(Туша)
  * 3. Отмена запрета на приём тащимого элемента(на рюкзак)
- * 4. Принятия тащимого объекта
+ * 4. Принятия тащимого объекта(на рюкзак)
  *  */
 
 const menu = {
@@ -13,6 +13,15 @@ const menu = {
         this.weightVal += this.initWeight;
         this.countVal += 1;
 
+        this.renderMenu();
+    },
+    minusTusha: function () {
+        this.weightVal -= this.initWeight;
+        this.countVal -= 1;
+
+        this.renderMenu();
+    },
+    renderMenu: function () {
         this.counter.innerText = this.countVal;
         this.weight.innerText = this.weightVal;
     },
@@ -27,10 +36,14 @@ const menu = {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const backPack = document.querySelector('.backpack');
+    menu.backPack = document.querySelector('.backpack');
+    menu.products = document.querySelector('.products');
 
-    backPack.addEventListener('dragover', allowDrop);
-    backPack.addEventListener('drop', onDrop);
+    menu.products.addEventListener('dragover', allowDrop);
+    menu.products.addEventListener('drop', onDrop);
+
+    menu.backPack.addEventListener('dragover', allowDrop);
+    menu.backPack.addEventListener('drop', onDrop);
     addDragable();
     menu.init();
 
@@ -38,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addDragable() {
     let counter = Date.now();
-    [...document.querySelectorAll('.tusha')].forEach(el => {
+    document.querySelectorAll('.tusha').forEach(el => {
         el.setAttribute('draggable', true);
         el.id = `tusha${counter--}`;
         el.addEventListener('dragstart', dragStart);
@@ -57,5 +70,5 @@ function onDrop(ev) {
     const tusha = document.querySelector(`#${ev.dataTransfer.getData('id')}`);
     ev.target.appendChild(tusha);
 
-    menu.addTusha();
+    menu.backPack == ev.target ? menu.addTusha() : menu.minusTusha();
 }
