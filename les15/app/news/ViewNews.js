@@ -1,10 +1,12 @@
-import { Templater } from '../share/Templater.js';
+// import { Templater } from '../share/Templater.js';
+import { TemplateNews } from './TemplateNews.js';
 
 export class ViewNews {
     constructor() {
         this.domNews = document.querySelector('.news');
         this.btnSearch = document.querySelector('.btn__search');
-        this.templater = new Templater('/app/news/templateNews.dp180');
+        // this.templater = new Templater('/app/news/templateNews.dp180');
+        this.templater = new TemplateNews();
     }
 
     renderNews(news) {
@@ -27,15 +29,7 @@ export class ViewNews {
     }
 
     prepareNewsArticle(article) {
-        return this.templater.getHTML(this.prepareArticleData(article));
-        //     `<div class="card mb-3" style="width: 18rem;">
-        //     <img src="${article.urlToImage}" class="card-img-top" alt="${article.description}">
-        //     <div class="card-body">
-        //       <h5 class="card-title">${article.title}</h5>
-        //       <p class="card-text">${article.description}</p>
-        //       <a href="${article.url}" class="btn btn-primary">Go ${article.source.name}</a>
-        //     </div>
-        //   </div>`;
+        return this.templater.getNewsTemplate(this.prepareArticleData(article));
     }
 
     addListeners(searchFunc) {
