@@ -1,0 +1,25 @@
+.square{
+    width: 300px;
+    height: 300px;
+    margin: 15px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.square:hover{
+    border-color: red;
+}
+body,#main{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
