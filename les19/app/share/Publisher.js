@@ -3,22 +3,30 @@ export class Publisher {
         this.subscribes = {};
         this.ctrls = {
             subscribe: this.subscribe.bind(this),
-            notify: this.notify.bind(this)
+            unsubscribe: this.unsubscribe.bind(this),
+            notify: this.notify.bind(this),
+        }
+    }
+
+    checkEvent(event) {
+        if (!this.subscribes.hasOwnProperty(event)) {
+            this.subscribes[event] = [];
         }
     }
 
     subscribe(event, func) {
-        if (!this.subscribes.hasOwnProperty(event)) {
-            this.subscribes[event] = [];
-        }
+        this.checkEvent(event);
         this.subscribes[event].push(func);
     }
 
     notify(event, data) {
-        if (!this.subscribes.hasOwnProperty(event)) {
-            this.subscribes[event] = [];
-        }
+        this.checkEvent(event);
         this.subscribes[event].forEach(sb => sb(data));
+    }
+
+    unsubscribe(event, func) {
+        this.checkEvent(event);
+        this.subscribes[event] = this.subscribes[event].filter(fu => fu != func);
     }
 
 
